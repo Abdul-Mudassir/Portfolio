@@ -12,11 +12,12 @@
     <!--favicon-img-->  
     <link rel="icon" type="image/png" href="images/favicon.png">
     <!--favicon-img-->  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Poppins:wght@500&family=Raleway:wght@300&display=swap" rel="stylesheet">
     <!--main css file should not be removed -->
     <link rel="stylesheet" href="css/index.css">
     <!--main css file-->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script> -->
-    <script src="js/gsap.min.js"></script>
 </head>
 
 <body>
@@ -632,11 +633,11 @@
                     </div>
                     <form id="myForm">
                         <div class="input-line">
-                            <input id="name" type="text" placeholder="Name" class="input-name" required>
-                            <input id="email" type="email" placeholder="Email" class="input-name" required>
+                            <input id="name" name="name" type="text" placeholder="Name" class="input-name" required>
+                            <input id="email" name="email" type="email" placeholder="Email" class="input-name" required>
                         </div>
-                        <input type="text" id="subject" placeholder="Subject" class="input-subject" required>
-                        <textarea id="body" class="input-textarea" placeholder="Message" required></textarea>
+                        <input type="text" id="subject" name="subject" placeholder="Subject" class="input-subject" required>
+                        <textarea id="body" name="body" class="input-textarea" placeholder="Message" required></textarea>
                         <button type="submit" id="submit">Submit</button>
                     </form>
                     <div id="confirmation" style="display:none;color:green;font-weight:bold;margin-top:10px;">
@@ -646,42 +647,6 @@
                         Something went wrong. Please try again.
                     </div>
                 </div>
-                
-                <script>
-                document.getElementById("myForm").addEventListener("submit", function(event) {
-                    event.preventDefault(); // Prevent form from submitting normally
-                
-                    // Get form data
-                    var name = document.getElementById("name").value;
-                    var email = document.getElementById("email").value;
-                    var subject = document.getElementById("subject").value;
-                    var body = document.getElementById("body").value;
-                
-                    // Prepare the data for AJAX request
-                    var formData = new FormData();
-                    formData.append('name', name);
-                    formData.append('email', email);
-                    formData.append('subject', subject);
-                    formData.append('body', body);
-                
-                    // Send the AJAX request
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "sendEmail.php", true);
-                    xhr.onload = function() {
-                        if (xhr.status === 200 && xhr.responseText === 'success') {
-                            // Display success message
-                            document.getElementById("confirmation").style.display = 'block';
-                            document.getElementById("error").style.display = 'none';
-                            document.getElementById("myForm").reset(); // Clear the form
-                        } else {
-                            // Display error message
-                            document.getElementById("error").style.display = 'block';
-                            document.getElementById("confirmation").style.display = 'none';
-                        }
-                    };
-                    xhr.send(formData);
-                });
-                </script>
                 
                 <!--Contact form-->
                 <!--Contact information-->
@@ -735,15 +700,9 @@
         <!--contact end-->
     </div>
     <!--all the divisions-->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/particles.js"></script>
-    <script src="js/particles.min.js"></script>
-    <script src="js/index.js"></script>
-    <!--particles script-->
-    <script>
-        particlesJS("particles", { "particles": { "number": { "value": 40, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 }, "image": { "src": "img/github.svg", "width": 100, "height": 100 } }, "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 400, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } } }, "retina_detect": true });
-    </script>
-
+    <script src="js/gsap.min.js" defer></script>
+    <script src="js/particles.min.js" defer></script>
+    <script src="js/index.js" defer></script>
 </body>
 
 </html>
