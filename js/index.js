@@ -1,192 +1,224 @@
-$(window).on('load',function(){
-  gsap.to('#loader',1,{y:"-100%"});
-  gsap.to('#loader',1,{opacity:0});
-  gsap.to('#loader',0,{display:"none",delay:1});
-  gsap.to('#header',0,{display:"block",delay:1})
-  gsap.to('#navigation-content',0,{display:"none"});
-  gsap.to('#navigation-content',0,{display:"flex",delay:1});
-})
-$(function(){
-  $('.color-panel').on("click",function(e) {
-    e.preventDefault();
-    $('.color-changer').toggleClass('color-changer-active');
-});
-$('.colors a').on("click",function(e) {
-  e.preventDefault();
-  var attr = $(this).attr("title");
-  console.log(attr);
-  $('head').append('<link rel="stylesheet" href="css/'+attr+'.css">');
-});
-});
-$(function(){
-     $('.menubar').on('click',function(){
-         gsap.to('#navigation-content',.6,{y:0});
-     })
-     $('.navigation-close').on('click',function(){
-        gsap.to('#navigation-content',.6,{y:"-100%"});
-    });
-   }); 
+﻿(function() {
+    'use strict';
 
-$(function(){
-    var TxtRotate = function(el, toRotate, period) {
-        this.toRotate = toRotate;
-        this.el = el;
-        this.loopNum = 0;
-        this.period = parseInt(period, 10) || 2000;
-        this.txt = '';
-        this.tick();
-        this.isDeleting = false;
-      };
-      
-      TxtRotate.prototype.tick = function() {
-        var i = this.loopNum % this.toRotate.length;
-        var fullTxt = this.toRotate[i];
-      
-        if (this.isDeleting) {
-          this.txt = fullTxt.substring(0, this.txt.length - 1);
-        } else {
-          this.txt = fullTxt.substring(0, this.txt.length + 1);
+    const sectionIds = ['header', 'about', 'portfolio', 'blog', 'contact'];
+    const navigation = document.getElementById('navigation-content');
+    const cursorEl = document.querySelector('.cursor');
+    const themeLinkId = 'theme-style';
+
+    const hideAllSections = () => {
+        sectionIds.forEach((id) => {
+            const section = document.getElementById(id);
+            if (section) section.style.display = 'none';
+        });
+    };
+
+    const navigateTo = (sectionId) => {
+        if (!navigation) return;
+        gsap.set(navigation, { display: 'none', y: '-100%' });
+        hideAllSections();
+        gsap.set('#breaker, #breaker-two', { display: 'block' });
+        const target = document.getElementById(sectionId);
+        if (target) gsap.set(target, { display: 'block', delay: 0.7 });
+        gsap.set('#breaker, #breaker-two', { display: 'none', delay: 2 });
+        gsap.set(navigation, { display: 'flex', delay: 2 });
+    };
+
+    const initLoader = () => {
+        window.addEventListener('load', () => {
+            gsap.to('#loader', {
+                duration: 1,
+                y: '-100%',
+                opacity: 0,
+                onComplete: () => {
+                    gsap.set('#loader', { display: 'none' });
+                    gsap.set('#header', { display: 'block' });
+                    if (navigation) gsap.set(navigation, { display: 'flex' });
+                }
+            });
+        });
+    };
+
+    const initNavigation = () => {
+        const menubar = document.querySelector('.menubar');
+        const closeButton = document.querySelector('.navigation-close');
+
+        if (menubar && navigation) {
+            menubar.addEventListener('click', () => gsap.to(navigation, { duration: 0.6, y: 0, display: 'flex' }));
         }
-      
-        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
-      
-        var that = this;
-        var delta = 200 - Math.random() * 100;
-      
-        if (this.isDeleting) { delta /= 2; }
-      
-        if (!this.isDeleting && this.txt === fullTxt) {
-          delta = this.period;
-          this.isDeleting = true;
-        } else if (this.isDeleting && this.txt === '') {
-          this.isDeleting = false;
-          this.loopNum++;
-          delta = 100;
+
+        if (closeButton && navigation) {
+            closeButton.addEventListener('click', () => gsap.to(navigation, { duration: 0.6, y: '-100%' }));
         }
-      
-        setTimeout(function() {
-          that.tick();
-        }, delta);
-      };
-      
-      window.onload = function() {
-        var elements = document.getElementsByClassName('txt-rotate');
-        for (var i=0; i<elements.length; i++) {
-          var toRotate = elements[i].getAttribute('data-rotate');
-          var period = elements[i].getAttribute('data-period');
-          if (toRotate) {
-            new TxtRotate(elements[i], JSON.parse(toRotate), period);
-          }
+
+        const navMap = {
+            'home-link': 'header',
+            'about-link': 'about',
+            'portfolio-link': 'portfolio',
+            'blog-link': 'blog',
+            'contact-link': 'contact'
+        };
+
+        Object.entries(navMap).forEach(([linkId, sectionId]) => {
+            const link = document.getElementById(linkId);
+            if (!link) return;
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                navigateTo(sectionId);
+            });
+        });
+    };
+
+    const initThemeSwitcher = () => {
+        const panel = document.querySelector('.color-panel');
+        if (panel) {
+            panel.addEventListener('click', (event) => {
+                event.preventDefault();
+                document.querySelector('.color-changer')?.classList.toggle('color-changer-active');
+            });
         }
-        // INJECT CSS
-        var css = document.createElement("style");
-        css.type = "text/css";
-        css.innerHTML = ".txt-rotate > .wrap { border-right: 0em solid #666 ; }";
-        document.body.appendChild(css);
-      };
-})
-$(function(){
 
-    $('#about-link').on('click',function(){
-      gsap.to('#navigation-content',0,{display:"none",delay:.7});
-      gsap.to('#navigation-content',0,{y:'-100%',delay:.7});
-  gsap.to('#header',0,{display:"none"});
-gsap.to('#blog',0,{display:"none"});
-gsap.to('#portfolio',0,{display:"none"});
-   gsap.to('#breaker',0,{display:"block"});
-   gsap.to('#breaker-two',0,{display:"block",delay:.1});
-gsap.to('#contact',0,{display:"none"});
-   gsap.to('#breaker',0,{display:"none",delay:2});
-   gsap.to('#breaker-two',0,{display:"none",delay:2});
-   gsap.to('#about',0,{display:"block",delay:.7});
-   gsap.to('#navigation-content',0,{display:'flex',delay:2});
- })
- $('#contact-link').on('click',function(){
-   gsap.to('#navigation-content',0,{display:"none",delay:.7});
-   gsap.to('#navigation-content',0,{y:'-100%',delay:.7});
-gsap.to('#header',0,{display:"none"});
-gsap.to('#about',0,{display:"none"});
-gsap.to('#blog',0,{display:"none"});
-gsap.to('#portfolio',0,{display:"none"});
-gsap.to('#breaker',0,{display:"block"});
-gsap.to('#breaker-two',0,{display:"block",delay:.1});
-gsap.to('#breaker',0,{display:"none",delay:2});
-gsap.to('#breaker-two',0,{display:"none",delay:2});
-gsap.to('#contact',0,{display:"block",delay:.7});
-gsap.to('#navigation-content',0,{display:'flex',delay:2});
-})
-$('#portfolio-link').on('click',function(){
-  gsap.to('#navigation-content',0,{display:"none",delay:.7});
-  gsap.to('#navigation-content',0,{y:'-100%',delay:.7});
-gsap.to('#header',0,{display:"none"});
-gsap.to('#about',0,{display:"none"});
-gsap.to('#contact',0,{display:"none"});
-gsap.to('#blog',0,{display:"none"});
-gsap.to('#breaker',0,{display:"block"});
-gsap.to('#breaker-two',0,{display:"block",delay:.1});
-gsap.to('#breaker',0,{display:"none",delay:2});
-gsap.to('#breaker-two',0,{display:"none",delay:2});
-gsap.to('#portfolio',0,{display:"block",delay:.7});
-gsap.to('#navigation-content',0,{display:'flex',delay:2});
-})
-$('#blog-link').on('click',function(){
-  gsap.to('#navigation-content',0,{display:"none",delay:.7});
-  gsap.to('#navigation-content',0,{y:'-100%',delay:.7});
-gsap.to('#header',0,{display:"none"});
-gsap.to('#about',0,{display:"none"});
-gsap.to('#portfolio',0,{display:"none"});
-gsap.to('#contact',0,{display:"none"});
-gsap.to('#breaker',0,{display:"block"});
-gsap.to('#breaker-two',0,{display:"block",delay:.1});
-gsap.to('#breaker',0,{display:"none",delay:2});
-gsap.to('#breaker-two',0,{display:"none",delay:2});
-gsap.to('#blog',0,{display:"block",delay:.7});
-gsap.to('#navigation-content',0,{display:'flex',delay:2});
-})
-$('#home-link').on('click',function(){
-  gsap.to('#navigation-content',0,{display:"none",delay:.7});
-  gsap.to('#navigation-content',0,{y:'-100%',delay:.7});
-gsap.to('#header',0,{display:"none"});
-gsap.to('#about',0,{display:"none"});
-gsap.to('#portfolio',0,{display:"none"});
-gsap.to('#contact',0,{display:"none"});
-gsap.to('#blog',0,{display:"none"});
-gsap.to('#breaker',0,{display:"block"});
-gsap.to('#breaker-two',0,{display:"block",delay:.1});
-gsap.to('#breaker',0,{display:"none",delay:2});
-gsap.to('#breaker-two',0,{display:"none",delay:2});
-gsap.to('#header',0,{display:"block",delay:.7});
-gsap.to('#navigation-content',0,{display:'flex',delay:2});
-})
+        document.querySelectorAll('.colors a').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const theme = link.getAttribute('title');
+                if (!theme) return;
 
-})
-$(function(){
- var body =  document.querySelector('body');
- var $cursor = $('.cursor')
-   function cursormover(e){
-    
-    gsap.to( $cursor, {
-      x : e.clientX ,
-      y : e.clientY,
-      stagger:.002
-     })
-   }
-   function cursorhover(e){
-    gsap.to( $cursor,{
-     scale:1.4,
-     opacity:1
-    })
-    
-  }
-  function cursor(e){
-    gsap.to( $cursor, {
-     scale:1,
-     opacity:.6
-    }) 
-  }
-  $(window).on('mousemove',cursormover);
-  $('.menubar').hover(cursorhover,cursor);
-  $('a').hover(cursorhover,cursor);
-  $('.navigation-close').hover(cursorhover,cursor);
+                let themeLink = document.getElementById(themeLinkId);
+                if (!themeLink) {
+                    themeLink = document.createElement('link');
+                    themeLink.id = themeLinkId;
+                    themeLink.rel = 'stylesheet';
+                    document.head.appendChild(themeLink);
+                }
+                themeLink.href = `css/${theme}.css`;
+            });
+        });
+    };
 
-})
+    const initTypewriter = () => {
+        function TxtRotate(el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 10) || 2000;
+            this.txt = '';
+            this.isDeleting = false;
+            this.tick();
+        }
+
+        TxtRotate.prototype.tick = function() {
+            const i = this.loopNum % this.toRotate.length;
+            const fullTxt = this.toRotate[i];
+
+            this.txt = this.isDeleting ? fullTxt.substring(0, this.txt.length - 1) : fullTxt.substring(0, this.txt.length + 1);
+            this.el.innerHTML = `<span class="wrap">${this.txt}</span>`;
+
+            let delta = 200 - Math.random() * 100;
+            if (this.isDeleting) delta /= 2;
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum += 1;
+                delta = 100;
+            }
+
+            setTimeout(() => this.tick(), delta);
+        };
+
+        const elements = document.getElementsByClassName('txt-rotate');
+        Array.from(elements).forEach((element) => {
+            const toRotate = element.getAttribute('data-rotate');
+            const period = element.getAttribute('data-period');
+            if (toRotate) new TxtRotate(element, JSON.parse(toRotate), period);
+        });
+
+        const style = document.createElement('style');
+        style.textContent = '.txt-rotate > .wrap { border-right: 0em solid #666; }';
+        document.body.appendChild(style);
+    };
+
+    const initParticles = () => {
+        if (typeof particlesJS !== 'function' || !document.getElementById('particles')) return;
+
+        particlesJS('particles', {
+            particles: {
+                number: { value: 40, density: { enable: true, value_area: 800 } },
+                color: { value: '#ffffff' },
+                shape: { type: 'circle', stroke: { width: 0, color: '#000000' } },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 400, line_linked: { opacity: 1 } },
+                    bubble: { distance: 400, size: 40, duration: 2, opacity: 8, speed: 3 },
+                    repulse: { distance: 200, duration: 0.4 },
+                    push: { particles_nb: 4 },
+                    remove: { particles_nb: 2 }
+                }
+            },
+            retina_detect: true
+        });
+    };
+
+    const initCursor = () => {
+        if (!cursorEl) return;
+        window.addEventListener('mousemove', (event) => {
+            gsap.to(cursorEl, { x: event.clientX, y: event.clientY, stagger: 0.002, overwrite: 'auto' });
+        });
+
+        const hoverTargets = document.querySelectorAll('.menubar, a, .navigation-close');
+        hoverTargets.forEach((target) => {
+            target.addEventListener('mouseenter', () => gsap.to(cursorEl, { scale: 1.4, opacity: 1 }));
+            target.addEventListener('mouseleave', () => gsap.to(cursorEl, { scale: 1, opacity: 0.6 }));
+        });
+    };
+
+    const initContactForm = () => {
+        const form = document.getElementById('myForm');
+        if (!form) return;
+
+        const confirmation = document.getElementById('confirmation');
+        const error = document.getElementById('error');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            try {
+                const response = await fetch('sendEmail.php', { method: 'POST', body: formData });
+                const text = (await response.text()).trim();
+                const success = response.ok && text === 'success';
+                if (confirmation) confirmation.style.display = success ? 'block' : 'none';
+                if (error) error.style.display = success ? 'none' : 'block';
+                if (success) form.reset();
+            } catch (err) {
+                if (confirmation) confirmation.style.display = 'none';
+                if (error) error.style.display = 'block';
+            }
+        });
+    };
+
+    const init = () => {
+        initLoader();
+        initNavigation();
+        initThemeSwitcher();
+        initTypewriter();
+        initParticles();
+        initCursor();
+        initContactForm();
+    };
+
+    document.addEventListener('DOMContentLoaded', init);
+})();
