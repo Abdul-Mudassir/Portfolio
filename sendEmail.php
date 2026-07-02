@@ -58,7 +58,7 @@ return [
         'host' => 'smtp.gmail.com',
         'port' => 587,
         'username' => 'mudassir9290@gmail.com',
-        'password' => 'dpoqgdhgqztebdcu',
+        'password' => '',
         'encryption' => 'tls',
         'timeout' => 15,
     ],
