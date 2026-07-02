@@ -640,11 +640,17 @@
                         <textarea id="body" name="body" class="input-textarea" placeholder="Message" required></textarea>
                         <button type="submit" id="submit">Submit</button>
                     </form>
-                    <div id="confirmation" style="display:none;color:green;font-weight:bold;margin-top:10px;">
+                    <div id="confirmation" role="status" aria-live="polite"
+                        style="display:none;color:green;font-weight:bold;margin-top:10px;">
                         Message sent successfully
                     </div>
-                    <div id="error" style="display:none;color:red;font-weight:bold;margin-top:10px;">
+                    <div id="error" role="alert" aria-live="assertive"
+                        style="display:none;color:red;font-weight:bold;margin-top:10px;">
                         Something went wrong. Please try again.
+                    </div>
+                    <div id="contact-toast" class="contact-toast" role="status" aria-live="polite" aria-hidden="true">
+                        <div id="contact-toast-message" class="contact-toast-message"></div>
+                        <button type="button" id="contact-toast-close" class="contact-toast-close" aria-label="Close message">x</button>
                     </div>
                 </div>
                 
