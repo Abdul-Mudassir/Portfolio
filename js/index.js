@@ -192,20 +192,88 @@
 
         const confirmation = document.getElementById('confirmation');
         const error = document.getElementById('error');
+        const toast = document.getElementById('contact-toast');
+        const toastMessage = document.getElementById('contact-toast-message');
+        const toastClose = document.getElementById('contact-toast-close');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const defaultButtonText = submitButton ? submitButton.textContent : '';
+        let toastTimer;
+
+        const hideToast = () => {
+            if (!toast) return;
+            toast.classList.remove('show');
+            toast.setAttribute('aria-hidden', 'true');
+            window.clearTimeout(toastTimer);
+        };
+
+        const showToast = (success, message) => {
+            if (!toast || !toastMessage) return;
+            window.clearTimeout(toastTimer);
+            toastMessage.textContent = message;
+            toast.classList.toggle('success', success);
+            toast.classList.toggle('error', !success);
+            toast.setAttribute('role', success ? 'status' : 'alert');
+            toast.setAttribute('aria-hidden', 'false');
+            toast.classList.add('show');
+            toastTimer = window.setTimeout(hideToast, 5000);
+        };
+
+        const setStatus = (success, message) => {
+            if (confirmation) {
+                confirmation.textContent = success ? message : '';
+                confirmation.style.display = success ? 'block' : 'none';
+            }
+
+            if (error) {
+                error.textContent = success ? '' : message;
+                error.style.display = success ? 'none' : 'block';
+            }
+
+            showToast(success, message);
+        };
+
+        if (toastClose) {
+            toastClose.addEventListener('click', hideToast);
+        }
+
+        const parseResponse = async (response) => {
+            const raw = await response.text();
+            try {
+                return JSON.parse(raw);
+            } catch (err) {
+                return {
+                    success: false,
+                    message: raw.trim() || 'Message could not be sent. Please try again.'
+                };
+            }
+        };
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const formData = new FormData(form);
+
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+            }
+
             try {
-                const response = await fetch('sendEmail.php', { method: 'POST', body: formData });
-                const text = (await response.text()).trim();
-                const success = response.ok && text === 'success';
-                if (confirmation) confirmation.style.display = success ? 'block' : 'none';
-                if (error) error.style.display = success ? 'none' : 'block';
+                const response = await fetch('sendEmail.php', {
+                    method: 'POST',
+                    body: formData,
+                    headers: { Accept: 'application/json' }
+                });
+                const payload = await parseResponse(response);
+                const success = response.ok && payload.success === true;
+                setStatus(success, payload.message || 'Message could not be sent. Please try again.');
                 if (success) form.reset();
             } catch (err) {
-                if (confirmation) confirmation.style.display = 'none';
-                if (error) error.style.display = 'block';
+                setStatus(false, 'Message could not be sent. Please check your connection and try again.');
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = defaultButtonText;
+                }
             }
         });
     };
