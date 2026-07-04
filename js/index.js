@@ -186,6 +186,42 @@
         });
     };
 
+    const initPortfolioShowcase = () => {
+        const cards = document.querySelectorAll('[data-tilt-card]');
+        if (!cards.length) return;
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        cards.forEach((card) => {
+            const resetTilt = () => {
+                card.classList.remove('is-active');
+                card.style.setProperty('--portfolio-rotate-x', '0deg');
+                card.style.setProperty('--portfolio-rotate-y', '0deg');
+            };
+
+            card.addEventListener('pointerenter', (event) => {
+                if (event.pointerType === 'touch') return;
+                card.classList.add('is-active');
+            });
+
+            card.addEventListener('pointerleave', resetTilt);
+
+            if (reduceMotion) return;
+
+            card.addEventListener('pointermove', (event) => {
+                if (event.pointerType === 'touch') return;
+                const rect = card.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                const rotateY = ((x / rect.width) - 0.5) * 10;
+                const rotateX = (((y / rect.height) - 0.5) * -8);
+
+                card.style.setProperty('--portfolio-rotate-x', `${rotateX.toFixed(2)}deg`);
+                card.style.setProperty('--portfolio-rotate-y', `${rotateY.toFixed(2)}deg`);
+            });
+        });
+    };
+
     const initContactForm = () => {
         const form = document.getElementById('myForm');
         if (!form) return;
@@ -285,6 +321,7 @@
         initTypewriter();
         initParticles();
         initCursor();
+        initPortfolioShowcase();
         initContactForm();
     };
 
