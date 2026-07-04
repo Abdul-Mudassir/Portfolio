@@ -53,7 +53,7 @@ return [
     'from' => 'mudassir9290@gmail.com',
     'from_name' => 'Portfolio Contact',
     'debug' => true,
-
+      
     'smtp' => [
         'host' => 'smtp.gmail.com',
         'port' => 587,
