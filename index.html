@@ -21,7 +21,7 @@
 </head>
 
 <body>
-    <!--contains all the div-->
+    <!--contains all the div Here-->
     <div id="all">
         <!--mouse  follower-->
         <div class="cursor"></div>
@@ -379,68 +379,115 @@
                 </div>
             </div> -->
             <div class="portfolio-header"> <span class="color"> My </span> Portfolio
-                <span class="header-caption"> Some Of My <span class="color"> Works</span></span>
+                <span class="header-caption"> Production Work That Shows <span class="color"> Full-Stack Impact</span></span>
             </div>
-            <div id="portfolio-content">
-                <div class="portfolio portfolio-first">
+            <div class="portfolio-stage" aria-hidden="true">
+                <div class="portfolio-orbit orbit-one"></div>
+                <div class="portfolio-orbit orbit-two"></div>
+                <div class="portfolio-cube">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="portfolio-snapshot" aria-label="Portfolio highlights">
+                <div>
+                    <span>04</span>
+                    <p>Live Projects</p>
+                </div>
+                <div>
+                    <span>PHP</span>
+                    <p>Backend Delivery</p>
+                </div>
+                <div>
+                    <span>UX</span>
+                    <p>Clean Frontends</p>
+                </div>
+            </div>
+            <div id="portfolio-content" class="portfolio-grid">
+                <article class="portfolio portfolio-first" data-tilt-card>
                     <div class="portfolio-image">
-                        <img src="images/portfolio-first.jpg" alt="App Idea">
+                        <img src="images/portfolio-first.jpg" alt="Unicreds education platform">
+                        <div class="portfolio-layer layer-one"></div>
+                        <div class="portfolio-layer layer-two"></div>
                     </div>
                     <div class="portfolio-text">
+                        <span class="portfolio-kicker">Education Platform</span>
                         <h2>Unicreds</h2>
-                        <p>As a full-stack developer specializing in PHP, I've contributed to educational web
-                            applications like Unicreds. This project aimed to provide a seamless learning experience for
-                            students, offering features such as online courses, quizzes, and progress tracking.</p>
+                        <p>Full-stack contribution to an education web application with course delivery, quizzes,
+                            student progress flows, and a smoother learning experience.</p>
+                        <div class="portfolio-tags">
+                            <span>PHP</span>
+                            <span>Learning UX</span>
+                            <span>Web App</span>
+                        </div>
                         <div class="button"><a href="https://unicreds.org/" target="_blank"><button><span class="index">
                                         View Project<i class="gg-arrow-right"></i></span></button></a></div>
                     </div>
-                </div>
-                <div class="portfolio portfolio-second">
+                </article>
+                <article class="portfolio portfolio-second" data-tilt-card>
                     <div class="portfolio-image">
-                        <img src="images/portfolio-second.jpg" alt="Web Designing">
+                        <img src="images/portfolio-second.jpg" alt="MINDLOOPS learning platform">
+                        <div class="portfolio-layer layer-one"></div>
+                        <div class="portfolio-layer layer-two"></div>
                     </div>
                     <div class="portfolio-text">
+                        <span class="portfolio-kicker">Interactive Learning</span>
                         <h2>MINDLOOPS</h2>
-                        <p>In my role as a PHP developer, I've contributed to projects like MINDLOOPS, an innovative
-                            educational platform designed to engage students through interactive learning modules and
-                            collaborative exercises.</p>
+                        <p>Built for engaging student journeys with interactive modules, collaborative exercises, and
+                            focused PHP development across the platform experience.</p>
+                        <div class="portfolio-tags">
+                            <span>PHP</span>
+                            <span>Modules</span>
+                            <span>Collaboration</span>
+                        </div>
                         <div class="button"><a href="https://mindloops.org/" target="_blank"><button><span
                                         class="index"> View Project<i class="gg-arrow-right"></i></span></button></a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <div class="portfolio portfolio-third">
+                <article class="portfolio portfolio-third" data-tilt-card>
                     <div class="portfolio-image"> <img src="images/intencode.png"
-                            alt="Intencode IT Services Platform"> </div>
+                            alt="Intencode IT services platform">
+                        <div class="portfolio-layer layer-one"></div>
+                        <div class="portfolio-layer layer-two"></div>
+                    </div>
                     <div class="portfolio-text">
-                        <h2>Intencode IT Services Platform</h2>
-                        <p>As a full-stack developer, I contributed to the development of the Intencode IT Services
-                            Platform, a comprehensive solution for businesses seeking tailored IT services. This
-                            platform offers a range of solutions, including web development, software engineering,
-                            mobile application development, and cloud integration. The project emphasizes creating
-                            user-centric, scalable, and efficient systems to meet diverse client needs. By automating
-                            various IT operations, Intencode enables businesses to focus on growth while handling
-                            technical complexities smoothly.</p>
+                        <span class="portfolio-kicker">IT Services Platform</span>
+                        <h2>Intencode</h2>
+                        <p>Contributed to a scalable services platform for web development, software engineering,
+                            mobile development, and cloud-focused business solutions.</p>
+                        <div class="portfolio-tags">
+                            <span>Full Stack</span>
+                            <span>Services</span>
+                            <span>Scalable UI</span>
+                        </div>
                         <div class="button"><a href="https://intencode.com/" target="_blank"><button><span
                                         class="index"> View Project<i class="gg-arrow-right"></i></span></button></a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <div class="portfolio portfolio-fourth">
-                    <div class="portfolio-image"> <img src="images/kenz_automotive.png" alt="Kenz Automotive"> </div>
+                <article class="portfolio portfolio-fourth" data-tilt-card>
+                    <div class="portfolio-image"> <img src="images/kenz_automotive.png" alt="Kenz Automotive web application">
+                        <div class="portfolio-layer layer-one"></div>
+                        <div class="portfolio-layer layer-two"></div>
+                    </div>
                     <div class="portfolio-text">
-                        <h2>Kenz Automotive Web Application</h2>
-                        <p>As a PHP developer, I developed the Kenz Automotive web application, designed to streamline the process for
-                            car dealers to sell their vehicles. The platform offers a user-friendly interface for listing and managing
-                            car inventories, providing potential buyers with a seamless browsing and purchasing experience. The project
-                            demonstrates my expertise in web development using PHP, HTML, CSS, and JavaScript, with integrated features
-                            for secure dealer management, listing automation, and inquiry handling.</p>
+                        <span class="portfolio-kicker">Automotive Workflow</span>
+                        <h2>Kenz Automotive</h2>
+                        <p>Developed a dealer-focused web application for vehicle listings, inventory management, and
+                            inquiry handling with a clean buyer browsing flow.</p>
+                        <div class="portfolio-tags">
+                            <span>PHP</span>
+                            <span>Inventory</span>
+                            <span>Dealer Tools</span>
+                        </div>
                         <div class="button"><a href="https://kenzautomotive.com/" target="_blank"><button><span class="index"> View
                                         Project<i class="gg-arrow-right"></i></span></button></a></div>
                     </div>
-                </div>
+                </article>
             </div>
 
             <!--copyright-section You Can Remove After Downloading-->
