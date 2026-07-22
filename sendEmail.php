@@ -46,24 +46,24 @@ function loadMailConfig(): array
 
 function defaultMailConfig(): array
 {
-  
-return [
-    'transport' => 'smtp',
-    'to' => 'mudassir9290@gmail.com',
-    'from' => 'mudassir9290@gmail.com',
-    'from_name' => 'Portfolio Contact',
-    'debug' => true,
-    'log_file' => __DIR__ . DIRECTORY_SEPARATOR . 'contact-form.log',
-      
-    'smtp' => [
-        'host' => 'smtp.gmail.com',
-        'port' => 587,
-        'username' => 'mudassir9290@gmail.com',
-        'password' => 'dpoqgdhgqztebdcu',
-        'encryption' => 'tls',
-        'timeout' => 15,
-    ],
-];
+    // Structural defaults only — real credentials belong in config/mail.php
+    return [
+        'transport' => 'smtp',
+        'to' => '',
+        'from' => '',
+        'from_name' => 'Portfolio Contact',
+        'debug' => false,
+        'log_file' => __DIR__ . DIRECTORY_SEPARATOR . 'contact-form.log',
+
+        'smtp' => [
+            'host' => '',
+            'port' => 587,
+            'username' => '',
+            'password' => '',
+            'encryption' => 'tls',
+            'timeout' => 15,
+        ],
+    ];
 }
 
 function readContactMessage(): array
@@ -141,11 +141,12 @@ function sendViaPhpMail(array $message, array $config): array
 
 function sendViaSmtp(array $message, array $config): array
 {
+    // Merge with structural defaults — credentials always come from config/mail.php via $config
     $smtp = array_replace([
         'host' => '',
         'port' => 587,
-        'username' => 'mudassir9290@gmail.com',
-        'password' => 'dpoqgdhgqztebdcu',
+        'username' => '',
+        'password' => '',
         'encryption' => 'tls',
         'timeout' => 15,
     ], (array) ($config['smtp'] ?? []));
