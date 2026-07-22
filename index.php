@@ -18,7 +18,8 @@
         href="https://fonts.googleapis.com/css2?family=Monoton&family=Poppins:wght@500&family=Raleway:wght@300&display=swap"
         rel="stylesheet">
     <!--main css file should not be removed -->
-    <link rel="stylesheet" href="css/index.css?v=1.2">
+    <!-- <link rel="stylesheet" href="css/index.css?v=1.2"> -->
+    <link rel="stylesheet" href="css/index.css?v=<?= filemtime('css/index.css') ?>">
     <!--main css file-->
 </head>
 
@@ -711,7 +712,8 @@
     <!--all the divisions-->
     <script src="js/gsap.min.js" defer></script>
     <script src="js/particles.min.js" defer></script>
-    <script src="js/index.js?v=1.2" defer></script>
+    <!-- <script src="js/index.js?v=1.2" defer></script> -->
+     <script src="js/index.js?v=<?= filemtime('js/index.js') ?>" defer></script>
 </body>
 
 </html>
