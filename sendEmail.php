@@ -53,12 +53,13 @@ return [
     'from' => 'mudassir9290@gmail.com',
     'from_name' => 'Portfolio Contact',
     'debug' => true,
+    'log_file' => __DIR__ . DIRECTORY_SEPARATOR . 'contact-form.log',
       
     'smtp' => [
         'host' => 'smtp.gmail.com',
         'port' => 587,
         'username' => 'mudassir9290@gmail.com',
-        'password' => '',
+        'password' => 'dpoqgdhgqztebdcu',
         'encryption' => 'tls',
         'timeout' => 15,
     ],
@@ -382,7 +383,9 @@ function respond(bool $success, string $message, int $statusCode = 200, string $
         'message' => $message,
     ];
 
-    if ($debug !== '' && ($GLOBALS['config']['debug'] ?? false)) {
+    // Use the global $config set at the top of the script for the debug flag
+    global $config;
+    if ($debug !== '' && !empty($config['debug'])) {
         $payload['debug'] = $debug;
     }
 
