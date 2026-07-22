@@ -91,6 +91,7 @@ body {
     background-position: 50% 50%;
     display: block;
     z-index: 1;
+    pointer-events: none;
 }
 
 #navigation-content {
@@ -366,6 +367,11 @@ body {
 .social-media:hover {
     opacity: 1;
     transform: scale(1.1);
+}
+
+/* Mobile combined icons row — hidden on desktop */
+.mobile-icons-row {
+    display: none;
 }
 
 .navigation-links {
@@ -2525,17 +2531,48 @@ For devices with smaller width like mobile phone
         font-size: 40px;
     }
 
+    /* Hide originals on mobile — replaced by .mobile-icons-row */
+    .social-media-links {
+        display: none;
+    }
+
     .contact {
-        /* display: none; */
-        width: 100%;
-        left: 0;
-        bottom: 0;
-        position: absolute;
-        padding: 10px;
-        height: 172%;
+        display: none;
+    }
+
+    /* Single bottom-centered row with all 4 icons */
+    .mobile-icons-row {
         display: flex;
         flex-direction: row;
-        padding-right: 180px;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        z-index: 4;
+        padding: 0;
+    }
+
+    .mobile-icons-row a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 4;
+    }
+
+    .mobile-icons-row .contactpic {
+        width: 28px;
+        height: 28px;
+        opacity: 0.75;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .mobile-icons-row .contactpic:hover,
+    .mobile-icons-row .contactpic:active {
+        opacity: 1;
+        transform: scale(1.15);
     }
 
     .header-image {
@@ -2546,24 +2583,10 @@ For devices with smaller width like mobile phone
 
     .header-image img {
         height: 100vh;
-        /* float: right; */
         position: absolute;
         top: -4%;
         left: -12%;
-    }
-
-    .social-media-links {
-        width: 100%;
-        left: 0;
-        bottom: 0;
-        position: absolute;
-        padding-left: 70px;
-        /* padding: 10px; */
-        height: 29vh;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
+        z-index: 1;
     }
 
     .header-content-box {
@@ -2571,10 +2594,6 @@ For devices with smaller width like mobile phone
         z-index: 2;
         text-align: center;
     }
-
-    /* #contact {
-        display: none;
-    } */
 
     #breaker {
         height: 50vh;
@@ -3160,37 +3179,60 @@ for tabs and large phones
         width: 0%;
     }
 
+    /* Hide originals on mobile — replaced by .mobile-icons-row */
     .social-media-links {
-        width: 100%;
-        left: 0;
-        bottom: 0;
-        position: absolute;
-        /* padding: 10px;*/
-        padding-left: 70px;
-        height: 29vh;
+        display: none;
+    }
+
+    .contact {
+        display: none;
+    }
+
+    /* Single bottom-centered row with all 4 icons */
+    .mobile-icons-row {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        gap: 20px;
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        z-index: 4;
+        padding: 0;
+    }
+
+    .mobile-icons-row a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 4;
+    }
+
+    .mobile-icons-row .contactpic {
+        width: 28px;
+        height: 28px;
+        opacity: 0.75;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .mobile-icons-row .contactpic:hover,
+    .mobile-icons-row .contactpic:active {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+
+    .header-image {
+        float: right;
+        height: auto;
+        width: 0%;
     }
 
     .header-content-box {
         padding-left: 0px;
         z-index: 2;
         text-align: center;
-    }
-
-    .contact {
-        /* display: none; */
-        width: 100%;
-        left: 0;
-        bottom: 0;
-        position: absolute;
-        padding: 10px;
-        height: 172%;
-        display: flex;
-        flex-direction: row;
-        padding-right: 180px;
     }
 
     #breaker {
