@@ -2548,7 +2548,7 @@ For devices with smaller width like mobile phone
         justify-content: center;
         gap: 20px;
         position: absolute;
-        bottom: 20px;
+        bottom: 10%;
         left: 0;
         width: 100%;
         z-index: 4;
