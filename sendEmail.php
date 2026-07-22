@@ -143,8 +143,8 @@ function sendViaSmtp(array $message, array $config): array
     $smtp = array_replace([
         'host' => '',
         'port' => 587,
-        'username' => '',
-        'password' => '',
+        'username' => 'mudassir9290@gmail.com',
+        'password' => 'dpoqgdhgqztebdcu',
         'encryption' => 'tls',
         'timeout' => 15,
     ], (array) ($config['smtp'] ?? []));
