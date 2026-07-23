@@ -46,7 +46,7 @@ function loadMailConfig(): array
 
 function defaultMailConfig(): array
 {
-    // Structural defaults only — real credentials belong in config/mail.php
+    // Structural defaults only — real credentials belong in config/mail.php -
     return [
         'transport' => 'smtp',
         'to' => '',
